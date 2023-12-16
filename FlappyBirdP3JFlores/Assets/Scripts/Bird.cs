@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bird : MonoBehaviour
-{ public float upForce = 200f;
+{
+    AudioSource audioSource;
+    
+    public float upForce = 200f;
 
     private bool isDead = false;
     private Rigidbody2D rb2d;
@@ -14,6 +17,7 @@ public class Bird : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();  
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,5 +39,9 @@ public class Bird : MonoBehaviour
         isDead = true;
         anim.SetTrigger("Die");
         GameControl.instance.BirdDied();
+    }
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }
